@@ -37,31 +37,31 @@
     \frametitle{Lecture goals I}
 
     \begin{itemize}
-        \item<1> Designing and implementing concurrent/distributed system (C/DS) is hard also because it is difficult to 
+        \item Designing and implementing concurrent/distributed system (C/DS) is hard also because it is difficult to 
         %
         \begin{itemize}
-            \item<1> precisely specify the behaviour of a C/DS
-            \item<1> verify a protocol correctly works in \alert{all possible situations}
+            \item precisely specify the behaviour of a C/DS
+            \item verify a protocol correctly works in \alert{all possible situations}
         \end{itemize}
         
         \vfill
         
-        \item<2> Here we will exemplify how process algebra-based modelling and reasoning may ease both a C/DS \alert{specification} -- making it clearer and more precise --, and its \alert{verification}---enabling us to prove some properties always hold (e.g. termination, deadlock-freedom, etc.)
+        \item Here we will exemplify how process algebra-based modelling and reasoning may ease both a C/DS \alert{specification} -- making it clearer and more precise --, and its \alert{verification}---enabling us to prove some properties always hold (e.g. termination, deadlock-freedom, etc.)
         
         \vfill
         
-        \item<3> Computer scientists are usually interested in proving general the \alert{correctness} of a C/DS
+        \item Computer scientists are usually interested in proving general the \alert{correctness} of a C/DS
         %
         \begin{itemize}
-            \item<3>[e.g.] the PayPal payment protocol MUST be deadlock-free, and MUST guarantee a 0-or-1 semantics to payments, in ANY possibile scenario
+            \item[e.g.] the PayPal payment protocol MUST be deadlock-free, and MUST guarantee a 0-or-1 semantics to payments, in ANY possibile scenario
         \end{itemize}
         
         \vfill
         
-        \item<4> Software engineers are usually interested in precisely specifing the \alert{semantics} of the software they are designing
+        \item Software engineers are usually interested in precisely specifing the \alert{semantics} of the software they are designing
         %
         \begin{itemize}
-            \item<4>[e.g.] what do you exactly mean by ``the \texttt{in} operation must suspend in case no tuple is available?''
+            \item[e.g.] what do you exactly mean by ``the \texttt{in} operation must suspend in case no tuple is available?''
         \end{itemize}
         
     \end{itemize}
@@ -72,23 +72,23 @@
     \frametitle{\linda{} as a running example}
 
     \begin{itemize}
-        \item<1> In giving you the \linda{} specification during the previous Lab lessons, we deliberately used the natural language, often issuing \alert{ambiguous} statements on purpose
+        \item In giving you the \linda{} specification during the previous Lab lessons, we deliberately used the natural language, often issuing \alert{ambiguous} statements on purpose
         
         \vfill
         
-        \item<2> The aim was to let you understand that several arbitrary \alert{interpretations} may be derived from an ambiguous specification
+        \item The aim was to let you understand that several arbitrary \alert{interpretations} may be derived from an ambiguous specification
         %
         \begin{itemize}
-            \item<2> which is a nightmare for engineers
+            \item which is a nightmare for engineers
         \end{itemize}
         
         \vfill
         
-        \item<3> You should already have implemented \linda{}. We will now \alert{model} (i.e. design) it by means of CCS, transition rules, and labelled transition systems
+        \item You should already have implemented \linda{}. We will now \alert{model} (i.e. design) it by means of CCS, transition rules, and labelled transition systems
         
         \vfill
         
-        \item<4> We will then show how several semantics could be defined from the same natural language-based specification 
+        \item We will then show how several semantics could be defined from the same natural language-based specification 
     \end{itemize}
     
 \end{frame}
@@ -98,27 +98,27 @@
 \begin{frame}
 \frametitle{A workflow for semantics specification}
     
-    In order to \alert{formally} model a C/DS using the \href{https://en.wikipedia.org/wiki/Calculus_of_communicating_systems}{Calculus of Communicating Systems} (CCS), and define its semantics, one usually need to perform the following steps:
+    We can \alert{formally} model a C/DS using the \href{https://en.wikipedia.org/wiki/Calculus_of_communicating_systems}{\alert{Calculus of Communicating Systems}} (CCS), and define its semantics, through the following steps:
     %
     \begin{enumerate}
-        \item<1> Define a \alert{syntax} for the C/DS system, covering all possible situations
+        \item Define a \alert{syntax} for the C/DS system, covering all possible situations
         %
         \begin{itemize}
-            \item<1> this can be done by means of \alert{grammars}, which is employed to define operators, actions, and processes
+            \item this can be done by means of \alert{grammars}, which is employed to define operators, actions, and processes
         \end{itemize}
         
-        \item<2> Instantiate a particular C/DS system as a \alert{word} over the language generated by the grammar above
+        \item Instantiate a particular C/DS system as a \alert{word} over the language generated by the grammar above
         
-        \item<3> Define its semantics in terms of a \alert{Labelled Transition System} (LST), which usually implies:
+        \item Define its semantics in terms of a \alert{Labelled Transition System} (LST), which usually implies:
         %
         \begin{itemize}
-            \item<3> formalise the \alert{transition rules} governing the system behaviour
-            \item<3> adopting the aforementioned word as the \alert{initial state}
+            \item formalise the \alert{transition rules} governing the system behaviour
+            \item adopting the aforementioned word as the \alert{initial state}
             
-            \item<3> generating the graph of possible states for the system by recursively applying all enabled transition rules to the initial state
+            \item generating the graph of possible states for the system by recursively applying all enabled transition rules to the initial state
         \end{itemize}
         
-        \item<4> Verify properties over the LTS by means of \alert{model-checkers} and \alert{temporal logics} (we won't do that) 
+        \item Verify properties over the LTS by means of \alert{model-checkers} and \alert{temporal logics} (we won't do that) 
     \end{enumerate}
     
 \end{frame}
@@ -134,23 +134,23 @@
     \vfill
     %
     \begin{enumerate}
-        \item<1> We will model tuple spaces by means of CCS
+        \item We will model tuple spaces by means of CCS
         
         \vfill
         
-        \item<2> We will then provide their formal semantics as standalone systems, by means of a LTS
+        \item We will then provide their formal semantics as standalone systems, by means of a LTS
         
         \vfill
         
-        \item<3> We will model agents/users by means of CCS
+        \item We will model agents/users by means of CCS
         
         \vfill
         
-        \item<4> We will then provide their formal semantics as standalone systems, by means of a LTS
+        \item We will then provide their formal semantics as standalone systems, by means of a LTS
         
         \vfill
         
-        \item<5> Finally we will provide the syntax and the semantics of a \alert{coordinated system}, i.e., the \alert{parallel composition} of several agents/users interacting with and by means of a tuple space
+        \item Finally we will provide the syntax and the semantics of a \alert{coordinated system}, i.e., the \alert{parallel composition} of several agents/users interacting with and by means of a tuple space
     \end{enumerate}
 \end{frame}
 
@@ -171,7 +171,7 @@
     
     \hint{$\langle t \rangle$ represents a tuple that is going to be inserted within the tuple space}
     
-    \pause\vfill
+    \vfill
     
     \begin{block}{Subject to the following axioms}
         \[\begin{array}{rcll}
@@ -190,23 +190,23 @@
     \vfill{}
     %
     \begin{itemize}
-        \item<1>[e.g.] $ts_0 = \emptyset$
+        \item[e.g.] $ts_0 = \emptyset$
         
         \vfill
         
-        \item<2>[e.g.] $ts_1 = t {\ \color{gray}\equiv t \cup \emptyset \equiv \emptyset \cup t \equiv t \cup \emptyset \cup \emptyset }$
+        \item[e.g.] $ts_1 = t {\ \color{gray}\equiv t \cup \emptyset \equiv \emptyset \cup t \equiv t \cup \emptyset \cup \emptyset }$
         
         \vfill
         
-        \item<3>[e.g.] $ts_2 = t_1 \cup t_2 {\ \color{gray} \equiv t_1 \cup t_2 \cup \emptyset \equiv t_2 \cup t_1 \equiv t_1 \cup \emptyset \cup t_2 }$
+        \item[e.g.] $ts_2 = t_1 \cup t_2 {\ \color{gray} \equiv t_1 \cup t_2 \cup \emptyset \equiv t_2 \cup t_1 \equiv t_1 \cup \emptyset \cup t_2 }$
         
         \vfill
         
-        \item<4>[e.g.] $ts_3 = t_1 \cup t_2 \cup t_3 {\ \color{gray} \equiv t_1 \cup t_2 \cup t_3 \cup \emptyset }$
+        \item[e.g.] $ts_3 = t_1 \cup t_2 \cup t_3 {\ \color{gray} \equiv t_1 \cup t_2 \cup t_3 \cup \emptyset }$
         
         \vfill
         
-        \item<5>[e.g.] $ts_3 = t_1 \cup \langle t_2 \rangle \cup t_3 \cup \langle t_2 \rangle$
+        \item[e.g.] $ts_3 = t_1 \cup \langle t_2 \rangle \cup t_3 \cup \langle t_2 \rangle$
         
     \end{itemize}
     
@@ -274,14 +274,13 @@
         meaning that transition $(s, e, s') \in \longrightarrow_\mathcal{TS}$ only if \alert{preconditions} $C_1$, \ldots, $C_n$ hold within the source state $s$
     \end{block}
     %
-    \pause
+    \vfill
     %
     \begin{itemize}
-        \item If no precondition of interest need to be specified, the numerator and the fraction line are usually omitted
+        \item If no precondition of interest need to be specified, the numerator and the fraction line are usually \alert{omitted}
         
-        \pause
         
-        \item The states $s$ and $s'$ are usually represented by means of non-ground formulas containing both terminal and non-terminal symbols, i.e. variables
+        \item The states $s$ and $s'$ can be represented by means of non-ground formulas containing both terminal and non-terminal symbols, i.e. variables
         %
         \begin{itemize}
             \item you can then imagine a transition rule as a \alert{rewriting rule}
@@ -295,13 +294,13 @@
     So, for what concerns \linda{} tuple spaces, we define the following transition rules:
     
     \[\begin{array}{rclr}
-        \onslide<1>{TS &\xrightarrow{?out(t)}_\mathcal{TS}& TS \cup \langle t \rangle & [\text{SCHEDULE}]} \\
+        \onslide{TS &\xrightarrow{?out(t)}_\mathcal{TS}& TS \cup \langle t \rangle & [\text{SCHEDULE}]} \\
         \\
-        \onslide<2>{TS \cup \langle t \rangle &\xrightarrow{\phantom{ab}\tau\phantom{ab}}_\mathcal{TS}& TS \cup t & [\text{INSERT}]} \\
+        \onslide{TS \cup \langle t \rangle &\xrightarrow{\phantom{ab}\tau\phantom{ab}}_\mathcal{TS}& TS \cup t & [\text{INSERT}]} \\
         \\
-        \onslide<3>{TS \cup t &\xrightarrow{!in(t)}_\mathcal{TS}& TS & [\text{CONSUME}]} \\
+        \onslide{TS \cup t &\xrightarrow{!in(t)}_\mathcal{TS}& TS & [\text{CONSUME}]} \\
         \\
-        \onslide<4>{TS \cup t &\xrightarrow{!rd(t)}_\mathcal{TS}& TS \cup t & [\text{OBSERVE}]} \\
+        \onslide{TS \cup t &\xrightarrow{!rd(t)}_\mathcal{TS}& TS \cup t & [\text{OBSERVE}]} \\
     \end{array}\]
     
 \end{frame}
@@ -352,7 +351,7 @@
     %
     \hint{where $\langle t \rangle$ represent the result of an access action}
     %
-    \pause\vfill
+    \vfill
     %
     \begin{block}{Subject to the following axioms}
         \vspace{-.4cm}
@@ -377,15 +376,15 @@
     \vfill{}
     %
     \begin{itemize}
-        \item<1>[e.g.] $u_0 = \mathtt{in}(\bar t) \cdot \langle t \rangle \cdot \mathtt{out}(t') \cdot \mathtt{rd}(\bar{t}'') \cdot \langle t'' \rangle \cdot 0$
+        \item[e.g.] $u_0 = \mathtt{in}(\bar t) \cdot \langle t \rangle \cdot \mathtt{out}(t') \cdot \mathtt{rd}(\bar{t}'') \cdot \langle t'' \rangle \cdot 0$
         \vfill
-        \item<2>[e.g.] $u_1 = \mathtt{out}(t_1) \cdot \mathtt{out}(t_2) \cdot \mathtt{out}(t_3) \cdot \mathtt{rd}(\bar t) \cdot \langle t \rangle \cdot 0$
+        \item[e.g.] $u_1 = \mathtt{out}(t_1) \cdot \mathtt{out}(t_2) \cdot \mathtt{out}(t_3) \cdot \mathtt{rd}(\bar t) \cdot \langle t \rangle \cdot 0$
         \vfill
-        \item<3>[e.g.] $u_2 = (\mathtt{in}(\bar{t}_1) + \mathtt{in}(\bar{t}_2) + \mathtt{in}(\bar{t}_3)) \cdot \langle t \rangle \cdot 0$
+        \item[e.g.] $u_2 = (\mathtt{in}(\bar{t}_1) + \mathtt{in}(\bar{t}_2) + \mathtt{in}(\bar{t}_3)) \cdot \langle t \rangle \cdot 0$
         \vfill
-        \item<4>[e.g.] $u_3 = \langle t \rangle \cdot \mathtt{in}(\bar{t}) \cdot \langle t' \rangle \cdot \mathtt{rd}(\bar{t}') \cdot 0$ \hint{makes no sense}
+        \item[e.g.] $u_3 = \langle t \rangle \cdot \mathtt{in}(\bar{t}) \cdot \langle t' \rangle \cdot \mathtt{rd}(\bar{t}') \cdot 0$ \hint{makes no sense}
         \vfill
-        \item<5>[e.g.] $u_4 = \mathtt{in}(\bar{t}) \cdot \langle t \rangle \cdot \mathtt{out}(t') \cdot u_4$ \hint{recursive}
+        \item[e.g.] $u_4 = \mathtt{in}(\bar{t}) \cdot \langle t \rangle \cdot \mathtt{out}(t') \cdot u_4$ \hint{recursive}
         
     \end{itemize}
     
@@ -403,8 +402,6 @@
             I_U &::=& rd(TT) \mid in(TT)  & \mathhint{input events} \\
         \end{array}\]
     \end{block}
-    
-    \pause
 
     \begin{block}{\linda{'s} users as a Labelled Transition System}
         We define a user $\mathcal{U}$ as a LTS, i.e. a \emph{quartet} $ \langle S,\, s_0,\, \longrightarrow_\mathcal{U},\, E \rangle$ where:
@@ -425,20 +422,20 @@
     For what concerns \linda{} users, we define the following transition rules:
     
     \[\begin{array}{rclr}
-        \onslide<1>{\mathtt{out}(t) \cdot U &\xrightarrow{!out(t)}_\mathcal{U}& U & [\text{WRITE}]} \\
+        \onslide{\mathtt{out}(t) \cdot U &\xrightarrow{!out(t)}_\mathcal{U}& U & [\text{WRITE}]} \\
         \\
-        \onslide<2>{\mathtt{rd}(\bar t) \cdot U &\xrightarrow{?rd(\bar t)}_\mathcal{U}& U & [\text{READ}]} \\
+        \onslide{\mathtt{rd}(\bar t) \cdot U &\xrightarrow{?rd(\bar t)}_\mathcal{U}& U & [\text{READ}]} \\
         \\
-        \onslide<3>{\mathtt{in}(\bar t) \cdot U &\xrightarrow{?in(\bar t)}_\mathcal{U}& U & [\text{TAKE}]} \\
+        \onslide{\mathtt{in}(\bar t) \cdot U &\xrightarrow{?in(\bar t)}_\mathcal{U}& U & [\text{TAKE}]} \\
         \\
-        \onslide<4>{\langle t \rangle \cdot U &\xrightarrow{\phantom{ab}\tau\phantom{ab}}_\mathcal{U}& U & [\text{COMPUTE}]}
+        \onslide{\langle t \rangle \cdot U &\xrightarrow{\phantom{ab}\tau\phantom{ab}}_\mathcal{U}& U & [\text{COMPUTE}]}
     \end{array}\]
     %
-    \onslide<5>$
+    \onslide$
         \frac{U_1 \cdot U'_1 \xrightarrow{\phantom{ab}E\phantom{ab}}_\mathcal{U} U'_1}{U_1 \cdot U'_1 + U_2 \cdot U'_2 \xrightarrow{\phantom{ab}E\phantom{ab}}_\mathcal{U} U'_1} \quad [\text{CHOICE-L}]
     $ 
     \hfill
-    \onslide<6>$
+    \onslide$
         \frac{U_2 \cdot U'_2 \xrightarrow{\phantom{ab}E\phantom{ab}}_\mathcal{U} U'_2}{U_1 \cdot U'_1 + U_2 \cdot U'_2 \xrightarrow{\phantom{ab}E\phantom{ab}}_\mathcal{U} U'_2} \quad [\text{CHOICE-R}]
     $ 
     
@@ -499,19 +496,19 @@
         \end{array}\]
     \end{block}
     
-    \pause
+    \vfill
     
     \begin{block}{Subject to the following axioms}
         \[\begin{array}{rcll}
             X \parallel Y &\not\equiv& Y \parallel X & \mathhint{parallel is \alert{not} commutative} \\
-            X \parallel (Y \parallel Z) &\equiv& (X \parallel  Y) \parallel Z & \mathhint{parentheses are useless for unions} \\
+            X \parallel (Y \parallel Z) &\equiv& (X \parallel  Y) \parallel Z & \mathhint{parentheses are useless for parallel} \\
             X \parallel 0 &\equiv& X & \mathhint{neutral element for parallel}
         \end{array}\]
     \end{block}
     %
     \hint{A non-commutative parallel operator makes the processes identifiable by means of their \emph{index}}
     
-    \pause\vfill
+    \vfill
     
     \begin{block}{}
 	    Notice that the states of a coordinated systems must match the patterns:
@@ -535,7 +532,7 @@
         \end{array}\]
     \end{block}
     
-    \pause
+    \vfill
 
     \begin{block}{Coordinated systems as a Labelled Transition System}
         We define a user $\mathcal{CS}$ as a LTS, i.e. a \emph{quartet} $ \langle S,\, s_0,\, \longrightarrow_\mathcal{CS},\, E \rangle$ where:
@@ -556,7 +553,7 @@
 
     For what concerns coordinated systems, we define the following transition rules (pay attention to the \alert{indexes} in rules names):
     
-    \onslide<1>\[
+    \onslide\[
         \frac{
             \mathtt{out}(t) \cdot U_i \xrightarrow{\highlightG{!out(t)}}_\mathcal{U} U_i 
             \qquad
@@ -570,7 +567,7 @@
         [\text{OUT}_i]
     \]
     
-    \onslide<2>\[
+    \onslide\[
 		\frac{
 			\mathtt{in}(\bar t) \cdot U_i \xrightarrow{\highlightG{?in(\bar t)}}_\mathcal{U} U_i 
 			\qquad
@@ -586,7 +583,7 @@
 		[\text{IN}_i]
 	\]
 	
-	\onslide<3>\[
+	\onslide\[
 		\frac{
 			\mathtt{rd}(\bar t) \cdot U_i \xrightarrow{\highlightG{?rd(\bar t)}}_\mathcal{U} U_i 
 			\qquad
@@ -607,7 +604,7 @@
 \begin{frame}
 \frametitle{Coordinated Systems -- Transition Rules II}
 	%
-	\onslide<1>\[
+	\[
 		\frac{
 			\langle t \rangle \cdot U_i \xrightarrow{\highlightG{\phantom{ab}\tau\phantom{ab}}}_\mathcal{U} U_i 
 		}{
@@ -618,8 +615,8 @@
 		\quad 
 		[\text{COMPUTE}_i]
 	\]
-	
-	\onslide<2>\[
+	\vfill
+	\[
 		\frac{
 			TS \cup \langle t \rangle \xrightarrow{\highlightG{\phantom{ab}\tau\phantom{ab}}}_\mathcal{TS} TS \cup t
 		}{
@@ -630,8 +627,8 @@
 		\quad 
 		[\text{INSERT}]
 	\]
-	
-	\onslide<3-4>\[
+	\vfill
+	\[
 		\frac{
 			U_i + U'_i \xrightarrow{\highlightG{\phantom{ab}E'\phantom{ab}}}_\mathcal{U} U''_i 
 			\qquad
@@ -647,16 +644,13 @@
 		[\text{CHOICE}_i]
 	\]
 	%
-	\onslide<4>{
-		where the partial funtion $\gamma(\cdot, \cdot)$ is defined as follows:
-		%
-        \begin{multicols}{2}\begin{itemize}
-            \item $\gamma(!out(t), ?out(t)) = out(t)$
-		    \item $\gamma(?in(\bar t), !in(t)) = in(t)$
-		    \item $\gamma(?rd(\bar t), !rd(t)) = rd(t)$
-        \end{itemize}\end{multicols}
-        % }
-	}
+	where the partial funtion $\gamma(\cdot, \cdot)$ is defined as follows:
+	%
+	\begin{multicols}{2}\begin{itemize}
+			\item $\gamma(!out(t), ?out(t)) = out(t)$
+			\item $\gamma(?in(\bar t), !in(t)) = in(t)$
+			\item $\gamma(?rd(\bar t), !rd(t)) = rd(t)$
+	\end{itemize}\end{multicols}
 \end{frame}
 
 \begin{frame}
@@ -670,12 +664,12 @@
     \end{center}
 \end{frame}
 
-\subsection{Exercise 5-1}
+\subsection{Exercise 10-1}
 
 \begin{frame}
-\frametitle{Exercise 5-1: Out-Out-In-In, \emph{unordered} I}
+\frametitle{Exercise 10-1: Out-Out-In-In, \emph{unordered} I}
     \begin{enumerate}
-        \item Clone the Lab-5 GitLab repository: \url{https://gitlab.com/pika-lab/courses/ds/aa1819/lab-5}
+        \item Clone the Lab-10 GitLab repository: \url{https://gitlab.com/pika-lab/courses/ds/aa1920/lab-10}
         
         \vfill
         
@@ -688,7 +682,7 @@
         \begin{itemize}
             \item web editor here: \href{
                 http://www.plantuml.com/plantuml/uml/ZPBVJl8m6CRFUnNl8Nm9P8m_4488-H0JJp0HE48E6bQneMkNjLFHUE22YGVSXWToBIRU0rTYHvakSpWFbhNls-VtF6_JdbJOLu7Ba5nIxc4Vkt12hd30rAdWQaJl2TXMeZbIM95zIwqO0QemetEPhHvYbq1V13ubFhgc3W7YUce53f5pdtgA2euIIXcXuG41_CVpvS8N0NVwWWc_qnbmX_95jmk2qHkITMB2oPsdLyJHfrQ4CN6B7X6Q_fj1gTG5QI63brORHA0AQXS-5Sk7LLWiKrvGx-lllmMxbrVzFIDf6K8b8Rpaq_F9MAzco71DEu-sUOlKkyqMoOg1sctuM6lQsN0qk1ZFlkhL12t3p8PyjyWAITlmQl0xiAhxUQ7rTdlOXliPgWTsQeQuNa_LZPV9SZpo3vUQeJMCoDo-PkxZnytc4QlwNyUAt92iPzFYUYkE42OYn5ODI3t2Ti8ZqzoCPzJDj3hlYapYMDxADZSUnrzXZt0dSDad
-            }{http://www.plantuml.com/plantuml/uml/ZP...SDad}
+            }{\texttt{http://www.plantuml.com/plantuml/uml/ZP...SDad}}
         \end{itemize}
         
         \vfill
@@ -713,7 +707,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Exercise 5-1: Out-Out-In-In, \emph{unordered}}
+\frametitle{Exercise 10-1: Out-Out-In-In, \emph{unordered}}
     \begin{center}
         \includegraphics[width=.5\linewidth]{img/ex1.pdf}
     \end{center}
@@ -726,20 +720,20 @@
 \frametitle{Ordered VS unordered semantics for \linda{}}
 
     \begin{itemize}
-        \item<1-3> The tuple spaces semantics defined so far is known as the \alert{unordered} semantics of \linda{}
+        \item The tuple spaces semantics defined so far is known as the \alert{unordered} semantics of \linda{}
         %
         \begin{itemize}
-            \item<2-> long story short: if $n$ tuples are orderly \texttt{out}'d by an agent, you cannot assume them to be inserted into the tuple space in the same order
-            \item<3> agents cannot use tuple spaces as counters $\implies$ \alert{no Turing equivalence}
+            \item long story short: if $n$ tuples are orderly \texttt{out}'d by an agent, you cannot assume them to be inserted into the tuple space in the same order
+            \item agents cannot use tuple spaces as counters $\implies$ \alert{no Turing equivalence}
         \end{itemize}
         
         \vfill
         
-        \item<4> The unordered semantics essentially states the \texttt{out} operation is \emph{asynchronous}
+        \item The unordered semantics essentially states the \texttt{out} operation is \emph{asynchronous}
         
         \vfill
         
-        \item<5> We will now provide an \alert{ordered} semantics where the \texttt{out} primitive is \emph{synchronous}, making the resulting coordinated systems Turing equivalent
+        \item We will now provide an \alert{ordered} semantics where the \texttt{out} primitive is \emph{synchronous}, making the resulting coordinated systems Turing equivalent
     \end{itemize} 
 
 \end{frame}
@@ -750,7 +744,7 @@
 \frametitle{Ordered semantics for \linda{}}
 
     \begin{enumerate}
-        \item<1> Imagine the syntax for tuple spaces was defined without a means for expressing pending tuples to be inserted:
+        \item Imagine the syntax for tuple spaces was defined without a means for expressing pending tuples to be inserted:
         %
         \[\begin{array}{rcl}
             TS &::=& (T \cup TS) \mid \emptyset
@@ -758,11 +752,11 @@
         
         \vfill
         
-        \item<2> Then, imagine transition rule $[\text{INSERT}]$ was never defined, neither for $\mathcal{TS}$ nor for $\mathcal{CS}$
+        \item Then, imagine transition rule $[\text{INSERT}]$ was never defined, neither for $\mathcal{TS}$ nor for $\mathcal{CS}$
         
         \vfill
         
-        \item<3> Then, imagine transition rule $[\text{SCHEDULE}]$ was defined in the following way for $\mathcal{TS}$:
+        \item Then, imagine transition rule $[\text{SCHEDULE}]$ was defined in the following way for $\mathcal{TS}$:
         %
         \[\begin{array}{rcl}
             TS &\xrightarrow{?out(t)}_\mathcal{TS}& (TS \cup t)
@@ -770,7 +764,7 @@
         
         \vfill
         
-        \item<4> Finally, imagine transition rule $[\text{OUT}_i]$ was defined in the following way for $\mathcal{CS}$:
+        \item Finally, imagine transition rule $[\text{OUT}_i]$ was defined in the following way for $\mathcal{CS}$:
         %
         \[
             \frac{
@@ -787,10 +781,10 @@
 
 \end{frame}
 
-\subsection{Exercise 5.2}
+\subsection{Exercise 10-2}
 
 \begin{frame}
-\frametitle{Exercise 5-2: Out-Out-In-In, \emph{ordered} I}
+\frametitle{Exercise 10-2: Out-Out-In-In, \emph{ordered} I}
     \begin{enumerate}
         \item Go on working on your local clone of the Lab-5 GitLab repository
         
@@ -805,7 +799,7 @@
         \begin{itemize}
             \item web editor here: \href{
                 http://www.plantuml.com/plantuml/uml/XO_1IiD048RlynHpR8MMjCTIacBLenvgJxM79JlMePlTi3khHl5WKV15V1kVeazYQeH627XOzeV__pwOMH3b9HO6mfPjgRmgy8nkLJHouQmi-8bmdBJAXIYXdqegGyYY3EUXcxvK1U7SHS_auOur8HMbLAWfv9vBOMUXHOQ36fy1yLJbsurtqUgvCyvFf-TMizsaAJh3zzIrM5fwBEj4kbvLP8nxW1U0rSaQ1uCKGmADFYGJT55wij-zzeU_QTSVikt9rzlnJt3_yLc_TmX9OnYrm1kxkbfUrsaDZRUf_x4TK0YZHZS-xhjqO_nxqmIpB8CPMHqBymq0
-            }{http://www.plantuml.com/plantuml/uml/XO...q0}
+            }{\texttt{http://www.plantuml.com/plantuml/uml/XO...q0}}
         \end{itemize}
         
         \vfill
@@ -830,7 +824,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Exercise 5-2: Out-Out-In-In, \emph{ordered} II}
+\frametitle{Exercise 10-2: Out-Out-In-In, \emph{ordered} II}
 
     \begin{center}
         \includegraphics[width=.5\linewidth]{img/out-out-in-in.pdf}
@@ -838,10 +832,10 @@
 
 \end{frame}
 
-\subsection{Exercise 5.3}
+\subsection{Exercise 10-3}
 
 \begin{frame}
-\frametitle{Exercise 5-3: Choice, \emph{ordered} I}
+\frametitle{Exercise 10-3: Choice, \emph{ordered} I}
     \begin{enumerate}
         \item Go on working on your local clone of the Lab-5 GitLab repository
         
@@ -856,7 +850,7 @@
         \begin{itemize}
             \item web editor here: \href{
                 http://www.plantuml.com/plantuml/uml/lO_1JW8n48RlVOeviXB8mf4GGbmnUj43yOGS6ZfYGxVTj5CLZGSg9ho8R-DJx9EuiDeWuQgtQV_ld_-VeIDkoUUAkONK1RSyXpEyurxHkT4qbiy8tNHF71Cdt4cqL0YIk98pTznznNE4p7WhqR9xAH0mBsW90jtCoeAaqMpFwRQh0LuOm2cVBURMU2qoeupjzqTQI3qV3C0e-O37Y1kDJqKreQYe9Ifb7jahOvEJARHQ0t0fs-slXXuqZAS6bM6LG1E-vv0aRIiQzBakmrlIJg7SV83KzSVwy2CaxTfNiyqehA8GFUNcdRcqRj7fGSo-rPFiuleo6rMFQIIwaGW7nCy17VXzRG_-flUsP0pj_bzeO4FKmkVg2m00
-            }{http://www.plantuml.com/plantuml/uml/lO...m00}
+            }{\texttt{http://www.plantuml.com/plantuml/uml/lO...m00}}
         \end{itemize}
         
         \vfill
@@ -881,7 +875,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Exercise 5-3: Choice, \emph{ordered} II}
+\frametitle{Exercise 10-3: Choice, \emph{ordered} II}
 
     \begin{center}
         \includegraphics[width=\linewidth]{img/ex3.pdf}
@@ -896,7 +890,7 @@
 \begin{frame}
 \frametitle{Let's further simplify Users: abstracting $[\text{COMPUTE}]$ away}
     \begin{enumerate}
-        \item<1> Imagine the syntax for users was simply defined as follows:
+        \item Imagine the syntax for users was simply defined as follows:
         %
         \[\begin{array}{rcl}
             U &::=& \mathtt{out}(T) \cdot U \mid \mathtt{in}(TT) \cdot U \\
@@ -905,11 +899,11 @@
         
         \vfill
         
-        \item<2> Then, imagine transition rule $[\text{COMPUTE}]$ and $[\text{COMPUTE}_i]$ where never defined, neither for $\mathcal{TS}$ nor for $\mathcal{CS}$
+        \item Then, imagine transition rule $[\text{COMPUTE}]$ and $[\text{COMPUTE}_i]$ where never defined, neither for $\mathcal{TS}$ nor for $\mathcal{CS}$
         
         \vfill
         
-        \item<3> Then, imagine rule $[\text{IN}_i]$ was defined in the following way for $\mathcal{CS}$:
+        \item Then, imagine rule $[\text{IN}_i]$ was defined in the following way for $\mathcal{CS}$:
         %
         \[
     		\frac{
@@ -927,7 +921,7 @@
         
         \vfill
         
-        \item<4> Finally, imagine rule $[\text{RD}_i]$ was defined in the following way for $\mathcal{CS}$:
+        \item Finally, imagine rule $[\text{RD}_i]$ was defined in the following way for $\mathcal{CS}$:
         %
         \[
     		\frac{
@@ -951,23 +945,23 @@
 \frametitle{Dining Philosophers}
     \columnsHH{
         \begin{itemize}
-            \item<1> $N$ philosophers are sitting on a round table spending their time \alert{eating} and \alert{thinking} 
+            \item $N$ philosophers are sitting on a round table spending their time \alert{eating} and \alert{thinking} 
             
-            \item<2> $N$ forks are on the table: philosopher $i$ has fork $i$ on his left and form $(i + 1) \% N$ on his right
+            \item $N$ forks are on the table: philosopher $i$ has fork $i$ on his left and form $(i + 1) \% N$ on his right
             
-            \item<3> In order to eat, philosopher $i$ must be holding \alert{both} fork $i$ and fork $(i + 1) \% N$
+            \item In order to eat, philosopher $i$ must be holding \alert{both} fork $i$ and fork $(i + 1) \% N$
             
-            \item<4> There is no way for a philosopher to take more than one fork \alert{at a time}
+            \item There is no way for a philosopher to take more than one fork \alert{at a time}
         \end{itemize}
     }{
         \includegraphics[width=\linewidth]{img/dining_pilosophers.png}
     }
 \end{frame}
 
-\subsubsection{Exercise 5.4}
+\subsubsection{Exercise 10-4}
 
 \begin{frame}
-\frametitle{Exercise 5-4: Three \href{https://en.wikipedia.org/wiki/Dining_philosophers_problem}{Dining Philosophers}, \emph{ordered} I}
+\frametitle{Exercise 10-4: Three \href{https://en.wikipedia.org/wiki/Dining_philosophers_problem}{Dining Philosophers}, \emph{ordered} I}
     \begin{enumerate}
         \item Go on working on your local clone of the Lab-5 GitLab repository
         
@@ -1007,7 +1001,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Exercise 5-4: Three Dining Philosophers, \emph{ordered} II}
+\frametitle{Exercise 10-4: Three Dining Philosophers, \emph{ordered} II}
     
     \includegraphics[width=\linewidth]{img/three_dining_philosophers.pdf}
     %
@@ -1023,14 +1017,29 @@
         A situation where $N$ processes must access some shared resources in a mutually exclusive way and all of them get stuck, waiting for some other process to release a resource
     \end{block}
     
-    \pause\vfill
-    
     \vfill
     
     \begin{alertblock}{Deadlock on a state graph}
         Deadlocks are those states on a state graph having \alert{no outgoing edge}, i.e., those states where \alert{no transition rule} can be applied (red states on the image)
     \end{alertblock}
 
+\end{frame}
+
+\subsubsection{Solution}
+
+\begin{frame}
+\frametitle{Exercise 10-4 -- Solution}
+
+	This exercise is indeed just an example.
+	%
+	Too big to be solved by hand.
+
+	\begin{figure}
+		\centering
+		\includegraphics[width=.8\linewidth]{img/dining-philosophers-sol.pdf}
+	\end{figure}
+	%	
+	\hint{Zoomable image available \href{http://www.plantuml.com/plantuml/svg/R90nJW9158RxESKhmGIoO4S8CO8cDZJ42YWcEq-SC3kpcNcheh5WryABs7WMJy59d0MURh7Tb_TzFs7sAf3qL6H6XAsskVGoWna-oCBGhREqqAy8mwGX5oG9Zufs1a6JD3eDxUkvp12chl0QlNZK2W6pd7QWCAHUvwIT5Orbg7yQtWJ0jKot6-yAgwREE3yUtrYbxMOo0MVq4xOLCvJAk7GR6u-ghRYt-997GXMR7HhZdiMx4CkBDVHw4mY9EFw122FGjaC_7uTot-qpbjs-AwX3zP4ftfAL1JXyVa6ZOwmQ8LDrdW2Fk6JSDrAc_Nd4i_eKuRk6ag4I8JczP50_uBHRsUNTFCBwJmvPbYpBVtd9ic9PhGL_bm6CuBTvQqTovOQ1-Jk5ZZ13WXzkv1iuiMzWfqxs3BwtnHAgHq5NYwQ6emrU1DHZ0mDq0r3j3yt6SnBsHoY6E8yam9X84c3CAWdXDbyTwqi2IGWU9wa46EiH9v80OrD9YBVhMcIwBtvzHs-7S6G1iS2QIOfWRAHEa0MxP-6dD85_TlE8eoFpg7x_yuyUrc4tzNNJH9ylZYivxiHA5bRPk1bHVRvGlJwpuwPK1MjMDLZdEd4T1_twhewRSG-i8Nm112hqAQvs5SsEnzKyBaOOi0Q3bIbek90u1ujm3q1EwWpck7tXVyG7GsYW787yQWdSeoFVIQdrJmQ7e7YZT-T7oUB-xzyxM0DOGks0YxRx40i0RdAuKVVvdc_Fi_iuzcMf1hGGfdfrHKLxguRWIJNIYxrPuH0PHo4mMyojOoKIpC4cpIpnmdriRCE86v0poeGvarP5O0zY-b7hOzmTUA5nmLpbRX26XM21ICS0Z9pquT24KAE1hcvutrjSc6oZWo7CEwS1137Nvmlhom2SZL0m1rbVQJ5xoKKa9iSOwIO2ixre_NmTfurzckp0-TGEiwbbfFF6nouUiJZ4JByCp4KLLwUDpvqhAY0o-eMvIkPgy_Gxf-En0HUdN3WqBVITxYvXMa0tL-gqyQ7wSD1K2qPRnAzw7B4T89bSm2nfrUQctNCgtm8WClQ1EQhAjxZY52BB9pekuqlEuP2q7DZgYLmHfvc3v8SDcEdj3H6anTSrsG398HRQ031N9LvTDowvZrbsE4slnZQdfXE0N1hp9jiBqhZu86KLS9WCmho_K9DpXL3St1i0SVs3Gz0ia3QA-FmAJ1kjG226GuvQzY2BgxGEz_yTWBXGmq7_iX4cP7hcify2u1160fpuhkQEmeaE9-cUINRUoKi3CWu8oWc7_A9dqWhHPpsJ752XAWbprgIUyeeJ9-kO3Bn2jbDPSDocS8hWmEUMg5VbfuxafpFa5PVTr1nDrOJRDN7PGJPl3aBkQG-Xk-BCcdVW8OC0p6LJ586IMtPB0Tm0F5HLWITIFASVH79qF3l7SpZ8nR1BsEb2YP8pG92qaETe_l-NN78yyKLDvVE4Kl52pex7gEh0hESqaDofqeXlM81HIb_djWkEpBawd2Ih6iH-tcquDt-PNo1XBhgsEdzSSF4j6-28hRZibtoqiezyjCAP_AtbjmIyp5aI3lBiMjuUvSVo51rC4p_mWYrEeIHdek9CNUblKZ2Nffcef_daus59ZcnN7wWtvHatlvBzjS3Pxd2G4lBekvClUQNWQJ7JbggwQ7nSB1Lvvvq31zFpP6bJMxdIyTBywQJsxph-WuDKmBhvQvbFCOT3qjtHK_d6cbztVwReXFVQVMDvhu4_WnQ0GzKjqEjqUYMdpz31enej-55PhuPmUPt3eRq8DurFqWn74iyyLtMcuGvdDIEhF5muIAf_v6j-4g_EPKrkTm-Oy_DrhNX5nz9q2MbUhWsloCsmRRUdFtNnk2R6XD_-_kUl-v_q_0S0}{here}}
 \end{frame}
 
 \subsection{Formalising other primitives}
@@ -1052,7 +1061,7 @@
             &\mid& (U + U) \mid 0
         \end{array}\]
         
-        \item<2> Subject to the following axioms:
+        \item Subject to the following axioms:
         %
         \[\begin{array}{rcl}
             (X\ ?\ T : F) \cdot Y &\equiv& X\ ?\ (T \cdot Y) : (F \cdot Y)
@@ -1062,13 +1071,13 @@
     
 \end{frame}
 
-\subsubsection{Exercise 5-5}
+\subsubsection{Exercise 10-5}
 
 \begin{frame}
-\frametitle{Exercise 5-5: Writing transition rules}
+\frametitle{Exercise 10-5: Writing transition rules}
 
     \begin{enumerate}
-    \item Go on working on your local clone of the Lab-5 GitLab repository
+    \item Go on working on your local clone of the Lab-10 GitLab repository
         
         \vfill
         
@@ -1087,7 +1096,7 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Exercise 5-5: Example for the \texttt{nop} primitive}
+\frametitle{Exercise 10-5: Example for the \texttt{nop} primitive}
 
     For instance, the \texttt{nop} primitive could be defined by means of the following transition rules:
     %
@@ -1115,10 +1124,10 @@
 
 \end{frame}
 
-\section{Exercise 5-6: Coffee Machine}
+\section{Exercise 10-6: Coffee Machine}
 
 \begin{frame}[allowframebreaks]
-\frametitle{Exercise 5-6: Coffee Machine}
+\frametitle{Exercise 10-6: Coffee Machine}
     
     \begin{enumerate}
         \item You must perform and end-to-end formalisation of a C/DS composed by a coffee machine and the user interacting with it
@@ -1197,6 +1206,7 @@
         %
         \begin{itemize}
             \item \url{http://vikhyat.net/projects/latex_to_unicode}
+            \item \url{https://www.unicodeit.net}
         \end{itemize}
     \end{itemize}
     
