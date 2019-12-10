@@ -1,9 +1,9 @@
-\documentclass[handout]{beamer}\mode<presentation>{\usetheme{AMSCesenaBleu}}
-% \documentclass[presentation]{beamer}\mode<presentation>{\usetheme{AMSCesenaBleu}}
+%\documentclass[handout]{beamer}\mode<presentation>{\usetheme{AMSCesenaPurpleAndGold}}
+\documentclass[presentation]{beamer}\mode<presentation>{\usetheme{AMSCesenaPurpleAndGold}}
 %%%%
 
-\usepackage{common}
-\usepackage{courses}
+\usepackage{sd-lab-process-algebra}
+\usepackage{my-listings}
 
 \title[L8 -- Process algebrae]{Process algebrae fundamentals}
 %
@@ -11,7 +11,7 @@
 {Distributed Systems / Technologies\\\scriptsize Sistemi Distribuiti / Tecnologie}
 %
 \author[Ciatto \and Omicini]
-{\alert{Giovanni Ciatto} \and \emph{Andrea Omicini}\\
+{\emph{Giovanni Ciatto} \and Andrea Omicini\\
 \texttt{giovanni.ciatto@unibo.it \and andrea.omicini@unibo.it}}
 %
 \institute[DISI, Univ. Bologna]
@@ -328,7 +328,7 @@
             \end{array}\]
         \end{column}
         \begin{column}{.25\linewidth}
-            \includegraphics[width=\linewidth]{res/img/ts_lts.pdf}
+            \includegraphics[width=\linewidth]{img/ts_lts.pdf}
         \end{column}
     \end{columns}
     
@@ -477,7 +477,7 @@
             \]
         \end{column}
         \begin{column}{.30\linewidth}
-            \includegraphics[width=\linewidth]{res/img/user.pdf}
+            \includegraphics[width=\linewidth]{img/user.pdf}
             
             \hint{Zoomable image \href{http://www.plantuml.com/plantuml/svg/fPBDJl9058RtSnNdsz7Fq9G2cuOWM6ea_c3uYGjaCQ4ZJfZEDDEfYiQ5m98RqMinyHvw9GusjIN1nCJTIUTzdlTCCwr8OQdYWA5eJdc89GwWGsvmpDInu6f07mdOLk5meB0YNqTgmGXGXHcTHllf2nmGS4KiAP7eble4I12g1VWacaeQAYeuAf3HLWrF2E08J-SpAMBkku89sMXutATyrco2OFIEx4kCE7a8zKHydLeGniGzUaPe_7y2vN8J8Wkb-iXoGCIgf9BbYs6Mf5zIx-jakJGEWF9iDinaywhqb6pUpEppoZ2pj2QrpqhD5GV-VHkl-VYgtnrw4vJrLS21FzLKqXhRWSDSetlSarxNzSfdavr8RiyZ_NmR6npuJQcT6giEVAotejxvvQXugwhs_0XNKxXMM6UrNMVOFYqeQbgnozLIhfxVDFsZVQ_ToRawvE_10GkX5k5-7B1F}{here}}
         \end{column}
@@ -664,7 +664,7 @@
     Example where \alert{$s_0 = \mathtt{out}(t) \cdot 0 \parallel \mathtt{in}(\bar t) \cdot 0 \parallel \mathtt{rd}(t) \cdot 0 \parallel \emptyset$}
     
     \begin{center}
-        \includegraphics[width=.4\linewidth]{res/img/out_in_rd.pdf}
+        \includegraphics[width=.4\linewidth]{img/out_in_rd.pdf}
         
         \hint{Zoomable image \href{http://www.plantuml.com/plantuml/svg/ZP9FRXCn5CRtFiLRDaX5apJDdr4LLQH1Oa6BcbGisYnCvj5QzTWZ-mrIGIm8HMBHQx20io1nXpa9apYEfz5CrKKMpkVtUx_FccDBt52UIcPlXSguuIcSu4UUItgj5Kt5PuHEL0cdn0dN4Tr9145SYeMjdpxbAS9OvqQWOJSYGS0qepj8q2wCo4XenIgJTeM6BmpW5L_SNXkTgsIifJP7HnEL27Kz6e6MuXEohuovo-x_jHE4Mp6ylq63e3IasY2GuSgArRehPNA95XPSmGS4dcLIOCBOvOivxE-Fm4ORi8rYq3djKRlrCeBYvoyGQe_-tlkJIIgdylU3sSWHsfl1rfMwFBkO5SjlSs-xofu1U_XDnSCVPjiEs8dXttq9UtCwdPpF0gpp71Wnst6OWtXziRKc5SlbV9jqutB89USdnV9xM57EF79gBd_WK8SRr_7PstSNiqcv9i2wjRu1xNsx3jNRzTqc_Tqb5UF3Hv-1OpP9-vbURSjm2YrxJc1Gqz9dmoVa-lKli6tUzuZTvXumy816mu53jACdD8RrVIkKOHCbk9HXurC7qZ6g94_bVm00}{here}}
     \end{center}
@@ -715,7 +715,7 @@
 \begin{frame}
 \frametitle{Exercise 5-1: Out-Out-In-In, \emph{unordered}}
     \begin{center}
-        \includegraphics[width=.5\linewidth]{res/img/ex1.pdf}
+        \includegraphics[width=.5\linewidth]{img/ex1.pdf}
     \end{center}
     \hint{Zoomable image \href{http://www.plantuml.com/plantuml/svg/ZPBFpj905CNtynHt-Nqca5B-G1f2Y8Y96qm4LiXYGaUSC9rfEbC5ZGiRJ5pm6YxaMKny1vx4ARULMejrGRYzTyxld3kPiJOqCd4WYDvn6TA81l2ClQ6nCC-LD7F-WO7h58PpGmsxZin1CE262hxHrUeP3HXCL1nn5f6tt6V0Wj0Sm6Tw4_7GS2L9GQbJD7ma04_fPhUDL2pzYH8g6WwdqkToEng14lmTgpgnb6mVsehvzjI12Q7Uaq-48FCsX3zFUZ3TXrJwcG8ZQ49MJzRGQ8n0EqYmXGSgDW_cadn-R6PLyjZayi7yEDx-7RXy_MP_NuXsaD0g25_BrSlbmbRhB1cEwsYdxwdwSZeJtKAewy7FewMzcCsdhnRht_tsZLPbvaAzMsf5j8ky3lmRsBRpkj3syvnz9jSTsXcxj4FUxvRww8LPxaV-owM3j1wAyFOjyne_7_RlM7N_TwtKZUXkDItl3_88II52RjM3qjlr2XwLvhWUgljbTTqLOU9SFgWsHu_xht3Cf1y7uXS0}{here}}
 \end{frame}
@@ -833,7 +833,7 @@
 \frametitle{Exercise 5-2: Out-Out-In-In, \emph{ordered} II}
 
     \begin{center}
-        \includegraphics[width=.5\linewidth]{res/img/out-out-in-in.pdf}
+        \includegraphics[width=.5\linewidth]{img/out-out-in-in.pdf}
     \end{center}
 
 \end{frame}
@@ -884,7 +884,7 @@
 \frametitle{Exercise 5-3: Choice, \emph{ordered} II}
 
     \begin{center}
-        \includegraphics[width=\linewidth]{res/img/ex3.pdf}
+        \includegraphics[width=\linewidth]{img/ex3.pdf}
     \end{center}
     
     \hint{Zoomable image \href{http://www.plantuml.com/plantuml/svg/lO_1JW8n48RlVOeviXB8mf4GGbmnUj43yOGS6ZfYGxVTj5CLZGSg9ho8R-DJx9EuiDeWuQgtQV_ld_-VeIDkoUUAkONK1RSyXpEyurxHkT4qbiy8tNHF71Cdt4cqL0YIk98pTznznNE4p7WhqR9xAH0mBsW90jtCoeAaqMpFwRQh0LuOm2cVBURMU2qoeupjzqTQI3qV3C0e-O37Y1kDJqKreQYe9Ifb7jahOvEJARHQ0t0fs-slXXuqZAS6bM6LG1E-vv0aRIiQzBakmrlIJg7SV83KzSVwy2CaxTfNiyqehA8GFUNcdRcqRj7fGSo-rPFiuleo6rMFQIIwaGW7nCy17VXzRG_-flUsP0pj_bzeO4FKmkVg2m00}{here}}
@@ -960,7 +960,7 @@
             \item<4> There is no way for a philosopher to take more than one fork \alert{at a time}
         \end{itemize}
     }{
-        \includegraphics[width=\linewidth]{res/img/dining_pilosophers.png}
+        \includegraphics[width=\linewidth]{img/dining_pilosophers.png}
     }
 \end{frame}
 
@@ -1009,7 +1009,7 @@
 \begin{frame}
 \frametitle{Exercise 5-4: Three Dining Philosophers, \emph{ordered} II}
     
-    \includegraphics[width=\linewidth]{res/img/three_dining_philosophers.pdf}
+    \includegraphics[width=\linewidth]{img/three_dining_philosophers.pdf}
     %
     \hint{SVG zoomable image available \href{http://www.plantuml.com/plantuml/svg/R8_1JW8n443l_OevWWbazKW8CO8cNk20di13inrnGhVTjBCg6W-21t_4Yz_YL_0bTgrDUjZRo_IzJkRSitJSL5huBPbQEbd13Ezbe_dA6bxI2y9PaJqkMJB-FV5E8n1BJQNlhkUoGfZQnX4wyK0A0QkQTw3Gbuvg9cj4LlhsQtWL01Uot6wSROoQMctTU7nf59dDP09MqoDs6JEKIjjo6no7gikuDVXS1q8Ld1rgRP_4cn1nQyeX_sa4DulP0enbAjjJXLYTtC5WC05Vn2x02CZq-EVZk7_l3nFk-qFRS8_3C54xAzO6uFZv1PcNy929YGx_IHP5CrkPr6nZYcBMZW9yjx1FS12-Y9USjWV4RcrMr_C0lyrNlMw6C0pSUOeymeVp8vAfRz2b7TdQjGjl0Efx5mbVJS6AcbQ134mdeRlpdJ7ZDqW0Pu2pW1RW0d0PE_ZIcsHQTEDWGhz9SQ9JJ03eDHC0Xfm9PFwHZlgHW0a4dKeI00uddRE0CMU2DPTNfBmNtMIv3YGkY1QWGRC8ODHo0XVSwa8h9U2nErPicHchUdvzsMG1Txdf-lAUrzRbcRTN8miqMzm0LGq4bVCPcBU-ge26N0Q7lpMntWxgfW6pqee5b2W92IHqfolMNhFbkYBceUa2IavGvGjA5oxENuQm9p1NSYQmVIHv8mQsbsRDptiicOQEf4LuEftdNQjWVJw5d3-HkwlH2hbmkAHlAgL2ZKZnhRXbrIvquNaCN-KbLsIYVUJ9rLzL-SF-wVtZRVsh_G80}{here}}
     
