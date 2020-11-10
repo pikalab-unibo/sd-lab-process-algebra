@@ -3,23 +3,44 @@
 %%%%
 
 \usepackage{sd-lab-process-algebra}
-\usepackage{my-listings}
+% \usepackage{my-listings}
 
-\title[L8 -- Process algebrae]{Process algebrae fundamentals}
+\newcommand{\bs}[1]{\textbackslash{}#1}
+\newcommand{\labN}{7}
+\newcommand{\labGroup}{https://gitlab.com/pika-lab/courses/ds/ay2021}
+\newcommand{\labRepo}{\labGroup/lab-\labN}
+
+\title[L\labN{} -- Process Algebrae]{L\labN{} -- Modelling Distributed Systems with Process Algebrae}
 %
-\subtitle[SD]
-{Distributed Systems / Technologies\\\scriptsize Sistemi Distribuiti / Tecnologie}
+\subtitle[SD]{Distributed Systems / Technologies}
 %
 \author[Ciatto \and Omicini]
 {\emph{Giovanni Ciatto} \and Andrea Omicini\\
-\texttt{giovanni.ciatto@unibo.it \and andrea.omicini@unibo.it}}
+	\texttt{giovanni.ciatto@unibo.it \and andrea.omicini@unibo.it}}
 %
 \institute[DISI, Univ. Bologna]
 {Dipartimento di Informatica -- Scienza e Ingegneria (DISI)\\\textsc{Alma Mater Studiorum} -- Universit{\`a} di Bologna a Cesena}
 %
-\date[A.Y. 2019/2020]{Academic Year 2019/2020}
+\date[A.Y. 2020/2021]{Academic Year 2020/2021}
 
 \setbeamercovered{transparent}
+
+\AtBeginSection{
+	\begin{frame}[c]\frametitle{Outline}
+		% 		\begin{multicols}{2}
+		\tableofcontents[sectionstyle=show/shaded, subsectionstyle=hide/hide, subsubsectionstyle=hide/hide]
+		% 		\end{multicols}
+	\end{frame}
+}
+
+\AtBeginSubsection{
+	\begin{frame}[c]\frametitle{Next in Line\ldots}
+		\begin{multicols}{2}
+			\small
+			\tableofcontents[sectionstyle=show/shaded, subsectionstyle=show/shaded, subsubsectionstyle=hide/hide]
+		\end{multicols}
+	\end{frame}
+}
 
 \begin{document}
 
@@ -33,39 +54,41 @@
 
 \section{Lecture goals} 
 
-\begin{frame}%[allowframebreaks]
-    \frametitle{Lecture goals I}
+\begin{frame}[allowframebreaks]
+    \frametitle{Lecture goals}
 
     \begin{itemize}
         \item Designing and implementing concurrent/distributed system (C/DS) is hard also because it is difficult to 
         %
         \begin{itemize}
             \item precisely specify the behaviour of a C/DS
-            \item verify a protocol correctly works in \alert{all possible situations}
+            \item verify it correctly works in \alert{all possible situations}
         \end{itemize}
         
-        \vfill
+        \bigskip
         
         \item Here we will exemplify how process algebra-based modelling and reasoning may ease both a C/DS \alert{specification} -- making it clearer and more precise --, and its \alert{verification}---enabling us to prove some properties always hold (e.g. termination, deadlock-freedom, etc.)
-        
-        \vfill
-        
-        \item Computer scientists are usually interested in proving general the \alert{correctness} of a C/DS
-        %
-        \begin{itemize}
-            \item[e.g.] the PayPal payment protocol MUST be deadlock-free, and MUST guarantee a 0-or-1 semantics to payments, in ANY possibile scenario
-        \end{itemize}
-        
-        \vfill
-        
-        \item Software engineers are usually interested in precisely specifing the \alert{semantics} of the software they are designing
-        %
-        \begin{itemize}
-            \item[e.g.] what do you exactly mean by ``the \texttt{in} operation must suspend in case no tuple is available?''
-        \end{itemize}
-        
     \end{itemize}
-    
+        
+        \framebreak
+        
+        \begin{block}{Computer Scientist Perspective}
+            Computer scientists are usually interested in proving general the \alert{correctness} of a C/DS
+            %
+            \begin{itemize}
+                \item[eg] the PayPal payment protocol MUST be deadlock-free, and MUST guarantee a 0-or-1 semantics to payments, in ANY possibile scenario
+            \end{itemize}
+        \end{block}
+        
+        \bigskip
+
+        \begin{block}{Software Engineer Perspective}
+            Software engineers are usually interested in precisely specifying the \alert{semantics} of the software they are designing
+            %
+            \begin{itemize}
+                \item[eg] what do you exactly mean by ``the \texttt{in} operation must suspend in case no tuple is available?''
+            \end{itemize}
+        \end{block}
 \end{frame}
 
 \begin{frame}%[allowframebreaks]
@@ -95,29 +118,38 @@
 
 \section{Syntax and Semantics}
 
-\begin{frame}
+\begin{frame}[allowframebreaks]
 \frametitle{A workflow for semantics specification}
     
     We can \alert{formally} model a C/DS using the \href{https://en.wikipedia.org/wiki/Calculus_of_communicating_systems}{\alert{Calculus of Communicating Systems}} (CCS), and define its semantics, through the following steps:
+    %
+    \bigskip
     %
     \begin{enumerate}
         \item Define a \alert{syntax} for the C/DS system, covering all possible situations
         %
         \begin{itemize}
-            \item this can be done by means of \alert{grammars}, which is employed to define operators, actions, and processes
+            \item this can be done by means of \alert{grammars}, which is exploited to define operators, actions, and processes
         \end{itemize}
+
+        \bigskip
         
         \item Instantiate a particular C/DS system as a \alert{word} over the language generated by the grammar above
         
+        \framebreak
+        
         \item Define its semantics in terms of a \alert{Labelled Transition System} (LST), which usually implies:
         %
-        \begin{itemize}
+        \begin{enumerate}
             \item formalise the \alert{transition rules} governing the system behaviour
+        
             \item adopting the aforementioned word as the \alert{initial state}
             
             \item generating the graph of possible states for the system by recursively applying all enabled transition rules to the initial state
-        \end{itemize}
+        \end{enumerate}
         
+        \bigskip
+
         \item Verify properties over the LTS by means of \alert{model-checkers} and \alert{temporal logics} (we won't do that) 
     \end{enumerate}
     
@@ -129,7 +161,7 @@
 \begin{frame}
 \frametitle{Formalising \linda{} with process algebrae}
 
-    We will now provide an example showing how process algebrae could be employed to formally describe the semantics of \linda{}
+    We will now provide an example showing how process algebrae could be exploited to formally describe the semantics of \linda{}
     %
     \vfill
     %
@@ -213,7 +245,7 @@
     \vfill
     
     \begin{block}{}
-        We say that $ts_0$, $ts_1$, $ts_2$, $ts_3$ are \alert{words} in $\mathcal{L}(TS)$, namely, the language generated by $TS$, i.e., the set of all possible tuples
+        We say that $ts_0$, $ts_1$, $ts_2$, $ts_3$ are \alert{words} in $\mathcal{L}(TS)$, namely, the language generated by $TS$, i.e., the set of all possible tuple spaces
         %
         % Oftern, for covenience, we simply write 
     \end{block}
@@ -664,12 +696,14 @@
     \end{center}
 \end{frame}
 
-\subsection{Exercise 10-1}
+\startExercise
 
-\begin{frame}
-\frametitle{Exercise 10-1: Out-Out-In-In, \emph{unordered} I}
+\subsection{Out-Out-In-In, \emph{unordered}}
+
+\begin{frame}[allowframebreaks]
+\frametitle{Exercise \currentExercise{} -- Out-Out-In-In, \emph{unordered}}
     \begin{enumerate}
-        \item Clone the Lab-10 GitLab repository: \url{https://gitlab.com/pika-lab/courses/ds/aa1920/lab-10}
+        \item Clone the Lab-10 GitLab repository: \url{\labRepo}
         
         \vfill
         
@@ -704,36 +738,41 @@
         
     \end{enumerate}
     
-\end{frame}
+    \framebreak
 
-\begin{frame}
-\frametitle{Exercise 10-1: Out-Out-In-In, \emph{unordered}}
     \begin{center}
         \includegraphics[width=.5\linewidth]{img/ex1.pdf}
     \end{center}
+    %
     \hint{Zoomable image \href{http://www.plantuml.com/plantuml/svg/ZPBFpj905CNtynHt-Nqca5B-G1f2Y8Y96qm4LiXYGaUSC9rfEbC5ZGiRJ5pm6YxaMKny1vx4ARULMejrGRYzTyxld3kPiJOqCd4WYDvn6TA81l2ClQ6nCC-LD7F-WO7h58PpGmsxZin1CE262hxHrUeP3HXCL1nn5f6tt6V0Wj0Sm6Tw4_7GS2L9GQbJD7ma04_fPhUDL2pzYH8g6WwdqkToEng14lmTgpgnb6mVsehvzjI12Q7Uaq-48FCsX3zFUZ3TXrJwcG8ZQ49MJzRGQ8n0EqYmXGSgDW_cadn-R6PLyjZayi7yEDx-7RXy_MP_NuXsaD0g25_BrSlbmbRhB1cEwsYdxwdwSZeJtKAewy7FewMzcCsdhnRht_tsZLPbvaAzMsf5j8ky3lmRsBRpkj3syvnz9jSTsXcxj4FUxvRww8LPxaV-owM3j1wAyFOjyne_7_RlM7N_TwtKZUXkDItl3_88II52RjM3qjlr2XwLvhWUgljbTTqLOU9SFgWsHu_xht3Cf1y7uXS0}{here}}
 \end{frame}
 
-\section{Several possible semantics}
+\section{\linda{} Semantics}
 
 \begin{frame}
-\frametitle{Ordered VS unordered semantics for \linda{}}
+\frametitle{Ordered VS Unordered Semantics for \linda{}}
 
     \begin{itemize}
-        \item The tuple spaces semantics defined so far is known as the \alert{unordered} semantics of \linda{}
+        \item The tuple space semantics defined so far is known as the \alert{unordered} semantics of \linda{}
         %
         \begin{itemize}
             \item long story short: if $n$ tuples are orderly \texttt{out}'d by an agent, you cannot assume them to be inserted into the tuple space in the same order
-            \item agents cannot use tuple spaces as counters $\implies$ \alert{no Turing equivalence}
+            \begin{itemize}
+                \item[$\implies$] agents cannot use tuple spaces as counters $\implies$ \alert{no Turing equivalence}
+            \end{itemize}
         \end{itemize}
         
         \vfill
         
-        \item The unordered semantics essentially states the \texttt{out} operation is \emph{asynchronous}
+        \item Unordered semantics $\implies$ the \texttt{out} operation is \emph{asynchronous}
+        %
+        \begin{itemize}
+            \item \texttt{out}ing agents resume execution before tuples are actually inserted
+        \end{itemize}
         
         \vfill
         
-        \item We will now provide an \alert{ordered} semantics where the \texttt{out} primitive is \emph{synchronous}, making the resulting coordinated systems Turing equivalent
+        \item We now provide an \alert{ordered} semantics where the \texttt{out} primitive is \emph{synchronous}, and the resulting coordinated system is Turing-complete
     \end{itemize} 
 
 \end{frame}
@@ -781,12 +820,14 @@
 
 \end{frame}
 
-\subsection{Exercise 10-2}
+\startExercise
 
-\begin{frame}
-\frametitle{Exercise 10-2: Out-Out-In-In, \emph{ordered} I}
+\subsection{Out-Out-In-In, \emph{ordered}}
+
+\begin{frame}[allowframebreaks]
+\frametitle{Exercise \currentExercise{} -- Out-Out-In-In, \emph{ordered}}
     \begin{enumerate}
-        \item Go on working on your local clone of the Lab-5 GitLab repository
+        \item Go on working on your local clone of the Lab \labN{} GitLab repository
         
         \vfill
         
@@ -821,10 +862,7 @@
         
     \end{enumerate}
     
-\end{frame}
-
-\begin{frame}
-\frametitle{Exercise 10-2: Out-Out-In-In, \emph{ordered} II}
+    \framebreak
 
     \begin{center}
         \includegraphics[width=.5\linewidth]{img/out-out-in-in.pdf}
@@ -832,10 +870,12 @@
 
 \end{frame}
 
-\subsection{Exercise 10-3}
+\startExercise
 
-\begin{frame}
-\frametitle{Exercise 10-3: Choice, \emph{ordered} I}
+\subsection{Non-deterministic Choice, \emph{ordered}}
+
+\begin{frame}[allowframebreaks]
+\frametitle{Exercise \currentExercise{} -- Non-deterministic Choice, \emph{ordered}}
     \begin{enumerate}
         \item Go on working on your local clone of the Lab-5 GitLab repository
         
@@ -872,10 +912,7 @@
         
     \end{enumerate}
     
-\end{frame}
-
-\begin{frame}
-\frametitle{Exercise 10-3: Choice, \emph{ordered} II}
+    \frame
 
     \begin{center}
         \includegraphics[width=\linewidth]{img/ex3.pdf}
@@ -885,7 +922,9 @@
 
 \end{frame}
 
-\section*{}
+\section{Dining Philosophers and Deadlocks}
+
+\subsection{Simplifying Users}
 
 \begin{frame}
 \frametitle{Let's further simplify Users: abstracting $[\text{COMPUTE}]$ away}
@@ -939,80 +978,63 @@
     \end{enumerate}
 \end{frame}
 
-\subsection{Dining Philosophers}
+\subsection{Dining Philosophers Recap}
 
 \begin{frame}
 \frametitle{Dining Philosophers}
-    \columnsHH{
-        \begin{itemize}
-            \item $N$ philosophers are sitting on a round table spending their time \alert{eating} and \alert{thinking} 
-            
-            \item $N$ forks are on the table: philosopher $i$ has fork $i$ on his left and form $(i + 1) \% N$ on his right
-            
-            \item In order to eat, philosopher $i$ must be holding \alert{both} fork $i$ and fork $(i + 1) \% N$
-            
-            \item There is no way for a philosopher to take more than one fork \alert{at a time}
-        \end{itemize}
-    }{
-        \includegraphics[width=\linewidth]{img/dining_pilosophers.png}
-    }
+    \begin{columns}
+        \begin{column}{.49\linewidth}
+            \begin{itemize}
+                \item $N$ philosophers are sitting on a round table spending their time \alert{eating} and \alert{thinking} 
+                
+                \item $N$ forks are on the table: philosopher $i$ has fork $i$ on his left and form $(i + 1) \mod N$ on his right
+                
+                \item In order to eat, philosopher $i$ must be holding \alert{both} fork $i$ and fork $(i + 1) \mod N$
+                
+                \item There is no way for a philosopher to take more than one fork \alert{at a time}
+            \end{itemize}
+        \end{column}
+        \begin{column}{.49\linewidth}
+            \includegraphics[width=\linewidth]{img/dining_pilosophers.png}
+        \end{column}
+    \end{columns}
 \end{frame}
 
-\subsubsection{Exercise 10-4}
+\startExercise
 
-\begin{frame}
-\frametitle{Exercise 10-4: Three \href{https://en.wikipedia.org/wiki/Dining_philosophers_problem}{Dining Philosophers}, \emph{ordered} I}
-    \begin{enumerate}
-        \item Go on working on your local clone of the Lab-5 GitLab repository
-        
-        \vfill
-        
-        \item Consider the system with \alert{$\mathtt{in}(\bar{t}_1) \cdot \mathtt{in}(\bar{t}_2) \cdot \mathtt{out}(t_1) \cdot \mathtt{out}(t_2) \cdot 0 \parallel \mathtt{in}(\bar{t}_2) \cdot \mathtt{in}(\bar{t}_3) \cdot \mathtt{out}(t_2) \cdot \mathtt{out}(t_3) \cdot 0 \parallel \mathtt{in}(\bar{t}_3) \cdot \mathtt{in}(\bar{t}_1) \cdot \mathtt{out}(t_3) \cdot \mathtt{out}(t_1) \cdot 0 \parallel t_1 \cup t_2 \cup t_3$}, where $t_i \in \bar{t}_i$ for all $i = 1,\ldots,3$, s.t. the \alert{ordered} \linda{} semantics defined before
-        
-        \vfill
-    
-        \item Complete the state graph according to the transition ruled defined before and include the state graph image in your \alert{\texttt{README.md}} file
-        %
-        \begin{itemize}
-            \item web editor here: \href{
-                http://www.plantuml.com/plantuml/uml/R8-nJiCm441tVyMDBLAhq15L4Q85YQLBnTHsiEAZM77ioBu00J4qOU17MFWMlg9VWXDgPAHiJtVlMRvBHznILIZcSgbBRda1IxpdbQ8ResajNn1cIRHS4oViLrGh14bSoSmDrojU82nCPILQzY050XObrI3GPLQM98rcKUcwf-6L0LpnBDzRKscnCChO-VnQ2wdtQGf6oKSSCfR8XJ9PxXsBOiYuq_XSUaBXdHgLCa_iZR7DsGucanHSmleFUBW0gKVq_Nvi3kDfm6OyDHMDo0y3TRDagm6E7vyGUG7RI0pKdfB_KHkYwFKeFuJeb7KZ3ryTD05QvfBVIyxx0_fkgpUtAm-xl-NifncpnuaO1g9mdrFu2F6_dOeRq4191otDtc0ZxasapDDujICB0ybEGVK4-kRDUxO9n2l4AuiUuWfnVPlWYpMBKUf6QuBTHmdjd301OfHCW9Xw9ZZpXtGS7mcOuFPHifG4YELkpYkBjMU2D-TNPBWNqyLJ7MRH1QXMp09KT_Exy056XCq8BJsWpGS2zo3RoPzVN_QneOVUWkDerO-VAn9t55CBjTlTXAaKP9KYceWxYwSLr29555DbVRlAn5sbNK5rSszNvNT7p767wtGfn2rVhr3TmX3eNREjUlJzCJvN9N8lpWKrI2g_3MPztR9uyKIfN2odNhkirRSmQubSlDvPBYmBhpbtuYN-quqv8g_2IbZsyy9_4HrRspHwS_lUNuoY5_lAd47cV5Hnjf-lniLuH_V0OnXqW4k6_-aRGJl3kAnnhO0hYeshYXFdPht6EQlPE2V03TyxXtq_QLpq-ZOCjD3tyByv1-CN5HzuBYdkRTQRkA8wSLKX7U3yBC2T-j3kVoATdZu-txTl_jy0
-            }{http://www.plantuml.com/plantuml/uml/R8...jy0}
-        \end{itemize}
-        
-        \vfill
-        
-        \item On the state graph, edges' labels should show both:
-        %
-        \begin{itemize}
-            \item the event raised by the transition
-            \item the transition rule justifying the edge
-        \end{itemize}
-        
-        \vfill
-        
-        \item You can rely on the tools listed on slide \ref{useful-tools} for your exercise
-        
-        \vfill
-        
-        \item Commit \& push your \texttt{README.md} file
-        
-    \end{enumerate}
-    
-\end{frame}
+\subsubsection{Demo \currentExercise}
 
-\begin{frame}
-\frametitle{Exercise 10-4: Three Dining Philosophers, \emph{ordered} II}
+\begin{frame}[allowframebreaks]
+\frametitle{Demo \currentExercise{} -- Three \href{https://en.wikipedia.org/wiki/Dining_philosophers_problem}{Dining Philosophers}, \emph{ordered}}
     
+    Consider the system with \alert{$\mathtt{in}(\bar{t}_1) \cdot \mathtt{in}(\bar{t}_2) \cdot \mathtt{out}(t_1) \cdot \mathtt{out}(t_2) \cdot 0 \parallel \mathtt{in}(\bar{t}_2) \cdot \mathtt{in}(\bar{t}_3) \cdot \mathtt{out}(t_2) \cdot \mathtt{out}(t_3) \cdot 0 \parallel \mathtt{in}(\bar{t}_3) \cdot \mathtt{in}(\bar{t}_1) \cdot \mathtt{out}(t_3) \cdot \mathtt{out}(t_1) \cdot 0 \parallel t_1 \cup t_2 \cup t_3$}, where $t_i \in \bar{t}_i$ for all $i = 1,\ldots,3$, s.t. the \alert{ordered} \linda{} semantics defined before
+
+    \bigskip
+
     \includegraphics[width=\linewidth]{img/three_dining_philosophers.pdf}
     %
     \hint{SVG zoomable image available \href{http://www.plantuml.com/plantuml/svg/R8_1JW8n443l_OevWWbazKW8CO8cNk20di13inrnGhVTjBCg6W-21t_4Yz_YL_0bTgrDUjZRo_IzJkRSitJSL5huBPbQEbd13Ezbe_dA6bxI2y9PaJqkMJB-FV5E8n1BJQNlhkUoGfZQnX4wyK0A0QkQTw3Gbuvg9cj4LlhsQtWL01Uot6wSROoQMctTU7nf59dDP09MqoDs6JEKIjjo6no7gikuDVXS1q8Ld1rgRP_4cn1nQyeX_sa4DulP0enbAjjJXLYTtC5WC05Vn2x02CZq-EVZk7_l3nFk-qFRS8_3C54xAzO6uFZv1PcNy929YGx_IHP5CrkPr6nZYcBMZW9yjx1FS12-Y9USjWV4RcrMr_C0lyrNlMw6C0pSUOeymeVp8vAfRz2b7TdQjGjl0Efx5mbVJS6AcbQ134mdeRlpdJ7ZDqW0Pu2pW1RW0d0PE_ZIcsHQTEDWGhz9SQ9JJ03eDHC0Xfm9PFwHZlgHW0a4dKeI00uddRE0CMU2DPTNfBmNtMIv3YGkY1QWGRC8ODHo0XVSwa8h9U2nErPicHchUdvzsMG1Txdf-lAUrzRbcRTN8miqMzm0LGq4bVCPcBU-ge26N0Q7lpMntWxgfW6pqee5b2W92IHqfolMNhFbkYBceUa2IavGvGjA5oxENuQm9p1NSYQmVIHv8mQsbsRDptiicOQEf4LuEftdNQjWVJw5d3-HkwlH2hbmkAHlAgL2ZKZnhRXbrIvquNaCN-KbLsIYVUJ9rLzL-SF-wVtZRVsh_G80}{here}}
     
+    \bigskip
+
+    \begin{alertblock}{Consider state $s_{16}$}
+        \begin{center}
+            $s_{16} = \mathtt{in}(\bar{t}_2) \cdot \mathtt{out}(t_1) \cdot \mathtt{out}(t_2) \cdot 0 \parallel \mathtt{in}(\bar{t}_3) \cdot \mathtt{out}(t_2) \cdot \mathtt{out}(t_3) \cdot 0 \parallel \mathtt{in}(\bar{t}_1) \cdot \mathtt{out}(t_3) \cdot \mathtt{out}(t_1) \cdot 0 \parallel \emptyset$
+        \end{center}
+        %
+        \begin{itemize}
+            \item is it possible for the system to reach this state?
+            \item what happens to the system when it reaches this state?
+            \item is this the only critical state for the system?
+        \end{itemize}
+    \end{alertblock}
+
 \end{frame}
 
-\subsubsection{Deadlocks}
+\subsection{Deadlocks}
 
 \begin{frame}
-\frametitle{Deadlocks}
+\frametitle{Aboud Deadlocks}
     \begin{block}{Deadlock}
         A situation where $N$ processes must access some shared resources in a mutually exclusive way and all of them get stuck, waiting for some other process to release a resource
     \end{block}
@@ -1025,27 +1047,66 @@
 
 \end{frame}
 
-\subsubsection{Solution}
-
 \begin{frame}
-\frametitle{Exercise 10-4 -- Solution}
-
-	This exercise is indeed just an example.
-	%
-	Too big to be solved by hand.
+\frametitle{Demo \currentExercise{} -- Complete State Graph}
 
 	\begin{figure}
 		\centering
-		\includegraphics[width=.8\linewidth]{img/dining-philosophers-sol.pdf}
+		\includegraphics[width=.6\linewidth]{img/dining-philosophers-sol.pdf}
 	\end{figure}
 	%	
-	\hint{Zoomable image available \href{http://www.plantuml.com/plantuml/svg/R90nJW9158RxESKhmGIoO4S8CO8cDZJ42YWcEq-SC3kpcNcheh5WryABs7WMJy59d0MURh7Tb_TzFs7sAf3qL6H6XAsskVGoWna-oCBGhREqqAy8mwGX5oG9Zufs1a6JD3eDxUkvp12chl0QlNZK2W6pd7QWCAHUvwIT5Orbg7yQtWJ0jKot6-yAgwREE3yUtrYbxMOo0MVq4xOLCvJAk7GR6u-ghRYt-997GXMR7HhZdiMx4CkBDVHw4mY9EFw122FGjaC_7uTot-qpbjs-AwX3zP4ftfAL1JXyVa6ZOwmQ8LDrdW2Fk6JSDrAc_Nd4i_eKuRk6ag4I8JczP50_uBHRsUNTFCBwJmvPbYpBVtd9ic9PhGL_bm6CuBTvQqTovOQ1-Jk5ZZ13WXzkv1iuiMzWfqxs3BwtnHAgHq5NYwQ6emrU1DHZ0mDq0r3j3yt6SnBsHoY6E8yam9X84c3CAWdXDbyTwqi2IGWU9wa46EiH9v80OrD9YBVhMcIwBtvzHs-7S6G1iS2QIOfWRAHEa0MxP-6dD85_TlE8eoFpg7x_yuyUrc4tzNNJH9ylZYivxiHA5bRPk1bHVRvGlJwpuwPK1MjMDLZdEd4T1_twhewRSG-i8Nm112hqAQvs5SsEnzKyBaOOi0Q3bIbek90u1ujm3q1EwWpck7tXVyG7GsYW787yQWdSeoFVIQdrJmQ7e7YZT-T7oUB-xzyxM0DOGks0YxRx40i0RdAuKVVvdc_Fi_iuzcMf1hGGfdfrHKLxguRWIJNIYxrPuH0PHo4mMyojOoKIpC4cpIpnmdriRCE86v0poeGvarP5O0zY-b7hOzmTUA5nmLpbRX26XM21ICS0Z9pquT24KAE1hcvutrjSc6oZWo7CEwS1137Nvmlhom2SZL0m1rbVQJ5xoKKa9iSOwIO2ixre_NmTfurzckp0-TGEiwbbfFF6nouUiJZ4JByCp4KLLwUDpvqhAY0o-eMvIkPgy_Gxf-En0HUdN3WqBVITxYvXMa0tL-gqyQ7wSD1K2qPRnAzw7B4T89bSm2nfrUQctNCgtm8WClQ1EQhAjxZY52BB9pekuqlEuP2q7DZgYLmHfvc3v8SDcEdj3H6anTSrsG398HRQ031N9LvTDowvZrbsE4slnZQdfXE0N1hp9jiBqhZu86KLS9WCmho_K9DpXL3St1i0SVs3Gz0ia3QA-FmAJ1kjG226GuvQzY2BgxGEz_yTWBXGmq7_iX4cP7hcify2u1160fpuhkQEmeaE9-cUINRUoKi3CWu8oWc7_A9dqWhHPpsJ752XAWbprgIUyeeJ9-kO3Bn2jbDPSDocS8hWmEUMg5VbfuxafpFa5PVTr1nDrOJRDN7PGJPl3aBkQG-Xk-BCcdVW8OC0p6LJ586IMtPB0Tm0F5HLWITIFASVH79qF3l7SpZ8nR1BsEb2YP8pG92qaETe_l-NN78yyKLDvVE4Kl52pex7gEh0hESqaDofqeXlM81HIb_djWkEpBawd2Ih6iH-tcquDt-PNo1XBhgsEdzSSF4j6-28hRZibtoqiezyjCAP_AtbjmIyp5aI3lBiMjuUvSVo51rC4p_mWYrEeIHdek9CNUblKZ2Nffcef_daus59ZcnN7wWtvHatlvBzjS3Pxd2G4lBekvClUQNWQJ7JbggwQ7nSB1Lvvvq31zFpP6bJMxdIyTBywQJsxph-WuDKmBhvQvbFCOT3qjtHK_d6cbztVwReXFVQVMDvhu4_WnQ0GzKjqEjqUYMdpz31enej-55PhuPmUPt3eRq8DurFqWn74iyyLtMcuGvdDIEhF5muIAf_v6j-4g_EPKrkTm-Oy_DrhNX5nz9q2MbUhWsloCsmRRUdFtNnk2R6XD_-_kUl-v_q_0S0}{here}}
+    \hint{Zoomable image available \href{http://www.plantuml.com/plantuml/svg/R90nJW9158RxESKhmGIoO4S8CO8cDZJ42YWcEq-SC3kpcNcheh5WryABs7WMJy59d0MURh7Tb_TzFs7sAf3qL6H6XAsskVGoWna-oCBGhREqqAy8mwGX5oG9Zufs1a6JD3eDxUkvp12chl0QlNZK2W6pd7QWCAHUvwIT5Orbg7yQtWJ0jKot6-yAgwREE3yUtrYbxMOo0MVq4xOLCvJAk7GR6u-ghRYt-997GXMR7HhZdiMx4CkBDVHw4mY9EFw122FGjaC_7uTot-qpbjs-AwX3zP4ftfAL1JXyVa6ZOwmQ8LDrdW2Fk6JSDrAc_Nd4i_eKuRk6ag4I8JczP50_uBHRsUNTFCBwJmvPbYpBVtd9ic9PhGL_bm6CuBTvQqTovOQ1-Jk5ZZ13WXzkv1iuiMzWfqxs3BwtnHAgHq5NYwQ6emrU1DHZ0mDq0r3j3yt6SnBsHoY6E8yam9X84c3CAWdXDbyTwqi2IGWU9wa46EiH9v80OrD9YBVhMcIwBtvzHs-7S6G1iS2QIOfWRAHEa0MxP-6dD85_TlE8eoFpg7x_yuyUrc4tzNNJH9ylZYivxiHA5bRPk1bHVRvGlJwpuwPK1MjMDLZdEd4T1_twhewRSG-i8Nm112hqAQvs5SsEnzKyBaOOi0Q3bIbek90u1ujm3q1EwWpck7tXVyG7GsYW787yQWdSeoFVIQdrJmQ7e7YZT-T7oUB-xzyxM0DOGks0YxRx40i0RdAuKVVvdc_Fi_iuzcMf1hGGfdfrHKLxguRWIJNIYxrPuH0PHo4mMyojOoKIpC4cpIpnmdriRCE86v0poeGvarP5O0zY-b7hOzmTUA5nmLpbRX26XM21ICS0Z9pquT24KAE1hcvutrjSc6oZWo7CEwS1137Nvmlhom2SZL0m1rbVQJ5xoKKa9iSOwIO2ixre_NmTfurzckp0-TGEiwbbfFF6nouUiJZ4JByCp4KLLwUDpvqhAY0o-eMvIkPgy_Gxf-En0HUdN3WqBVITxYvXMa0tL-gqyQ7wSD1K2qPRnAzw7B4T89bSm2nfrUQctNCgtm8WClQ1EQhAjxZY52BB9pekuqlEuP2q7DZgYLmHfvc3v8SDcEdj3H6anTSrsG398HRQ031N9LvTDowvZrbsE4slnZQdfXE0N1hp9jiBqhZu86KLS9WCmho_K9DpXL3St1i0SVs3Gz0ia3QA-FmAJ1kjG226GuvQzY2BgxGEz_yTWBXGmq7_iX4cP7hcify2u1160fpuhkQEmeaE9-cUINRUoKi3CWu8oWc7_A9dqWhHPpsJ752XAWbprgIUyeeJ9-kO3Bn2jbDPSDocS8hWmEUMg5VbfuxafpFa5PVTr1nDrOJRDN7PGJPl3aBkQG-Xk-BCcdVW8OC0p6LJ586IMtPB0Tm0F5HLWITIFASVH79qF3l7SpZ8nR1BsEb2YP8pG92qaETe_l-NN78yyKLDvVE4Kl52pex7gEh0hESqaDofqeXlM81HIb_djWkEpBawd2Ih6iH-tcquDt-PNo1XBhgsEdzSSF4j6-28hRZibtoqiezyjCAP_AtbjmIyp5aI3lBiMjuUvSVo51rC4p_mWYrEeIHdek9CNUblKZ2Nffcef_daus59ZcnN7wWtvHatlvBzjS3Pxd2G4lBekvClUQNWQJ7JbggwQ7nSB1Lvvvq31zFpP6bJMxdIyTBywQJsxph-WuDKmBhvQvbFCOT3qjtHK_d6cbztVwReXFVQVMDvhu4_WnQ0GzKjqEjqUYMdpz31enej-55PhuPmUPt3eRq8DurFqWn74iyyLtMcuGvdDIEhF5muIAf_v6j-4g_EPKrkTm-Oy_DrhNX5nz9q2MbUhWsloCsmRRUdFtNnk2R6XD_-_kUl-v_q_0S0}{here}}
+    
+    \begin{alertblock}{Consider the whole state graph}
+        \begin{itemize}
+            \item can the system terminate?
+            \item will the system terminate in any possible scenario?
+            \item does the system always terminate in a state where all processes are over?
+        \end{itemize}
+    \end{alertblock}
+
 \end{frame}
 
-\subsection{Formalising other primitives}
+\subsection{Analysing C/DS}
 
-\begin{frame}
-\frametitle{Formalising other primitives}
+\begin{frame}%[allowframebreaks]
+    \frametitle{Temporal Logics and Model Checking}
+
+    \begin{itemize}
+        \item Analysing the state graph of a C/DS let us not only \emph{debug} it but also \alert{proove} it is (in)correct
+        
+        \item Of course, generating and analysing the state graph by hand is not feasible, except for trivial cases
+    \end{itemize}
+
+    \vfill
+    
+    \begin{block}{Model Checking}
+        \begin{itemize}
+            \item Model checkers are tools capable of automatically inspecting a system's state graph
+            \item They can check if a \alert{temporal logic} formula hold for the system or not
+            \item[$\rightarrow$] Designers must express properties of interest via \alert{temporal logics}
+        \end{itemize}
+    \end{block}
+
+    \vfill
+
+    \begin{block}{Several sorts of temporal logics exist}
+        \begin{itemize}
+            \item[eg] Linear Temporal Logic (LTL), Computation Tree Logic (CTL)
+            \item[!] we do not discuss them in this course 
+        \end{itemize}
+    \end{block}
+
+\end{frame}
+
+\section{Lab Activity}
+
+\startExercise
+
+\subsection{Writing Transition Rules}
+
+\begin{frame}[allowframebreaks]
+\frametitle{Exercise \currentExercise{} -- Writing Transition Rules}
     
     \begin{enumerate}
         \item<1-> Imagine the syntax for users was extended as follows:
@@ -1060,34 +1121,28 @@
             &\mid& \alert{\mathtt{nop}(TT)\ ?\ U : U} \\
             &\mid& (U + U) \mid 0
         \end{array}\]
+
+        \bigskip
         
         \item Subject to the following axioms:
         %
         \[\begin{array}{rcl}
             (X\ ?\ T : F) \cdot Y &\equiv& X\ ?\ (T \cdot Y) : (F \cdot Y)
         \end{array}\]
+
+        \framebreak
+
+        \item Go on working on your local clone of the \labN{} GitLab repository
         
-    \end{enumerate}
-    
-\end{frame}
-
-\subsubsection{Exercise 10-5}
-
-\begin{frame}
-\frametitle{Exercise 10-5: Writing transition rules}
-
-    \begin{enumerate}
-    \item Go on working on your local clone of the Lab-10 GitLab repository
-        
-        \vfill
+        \bigskip
         
         \item Try extending the $\mathcal{CS}$ definition with new transition rules formally specifying the semantics of the \texttt{no}, \texttt{inp}, \texttt{rdp}, and \texttt{nop} primitives 
         
-        \vfill
+        \bigskip
         
         \item You can rely on the tools listed on slide \ref{useful-tools} for your exercise
         
-        \vfill
+        \bigskip
         
         \item Commit \& push your \texttt{README.md} file
         
@@ -1096,9 +1151,11 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Exercise 10-5: Example for the \texttt{nop} primitive}
+\frametitle{Exercise \currentExercise{} -- Example for the \texttt{nop} primitive}
 
     For instance, the \texttt{nop} primitive could be defined by means of the following transition rules:
+    %
+    \medskip
     %
     \[
 		\frac{
@@ -1120,21 +1177,53 @@
 			US \parallel \highlightR{U'} \parallel US' \parallel \highlightB{TS}
 		} 
 		[\text{NOP-F}_i]
-	\]
+    \]
+    
+    \medskip
+
+    \begin{itemize}
+        \item[!] notice the implicit definition of new sorts of events
+    \end{itemize}
 
 \end{frame}
 
-\section{Exercise 10-6: Coffee Machine}
+\startExercise
 
-\begin{frame}[allowframebreaks]
-\frametitle{Exercise 10-6: Coffee Machine}
+\subsection{Formalising a System: the Coffee Machine}
+
+    \begin{frame}[allowframebreaks]
+    \frametitle{Exercise \currentExercise{} -- Formalising a System: the Coffee Machine}
+
+    \begin{alertblock}{This is an \textbf{unconstrained} exercise}
+        \begin{itemize}
+            \item you are free to design your solution as you prefer
+            \item no test is provided: testing is up to you
+        \end{itemize}
+    \end{alertblock}
+
+    \bigskip
+
+    \begin{alertblock}{This is a \textbf{mandatory} exercise}
+        \begin{itemize}
+            \item your solution will be inspected during lab activity verification
+            \item you will be asked to discuss your solution
+            \item collaboration and discussion with your colleagues (on the forum) is allowed
+            \item asking for help on the forum is allowed
+        \end{itemize}
+    \end{alertblock}
+
+    \bigskip
     
     \begin{enumerate}
         \item You must perform and end-to-end formalisation of a C/DS composed by a coffee machine and the user interacting with it
         
+        \bigskip
+
         \item The system must take into account the following requirements:
         %
         \begin{itemize}
+
+            \medskip
             
             \item Any coffee machine simply performs the following sort of actions:
             %
@@ -1145,6 +1234,8 @@
                 \item it serves the \alert{coffee} to the user
                 \item it finally \alert{waits} for the \alert{user} to take the coffee 
             \end{itemize}
+
+            \medskip
             
             \item In turn, any user can perform the following actions:
             %
@@ -1154,11 +1245,15 @@
                 \item he/she can insert coins into the coffee machine in order to \alert{pay}
                 \item it can \alert{take} the coffee the machine has eventually served
             \end{itemize}
+
+            \medskip
             
             \item Of course, coffee machines can stop waiting for money only if some user pays 
             %
             Similarly, they can stop waiting for the coffee to be taken only if some user takes it
         \end{itemize}
+
+        \bigskip
         
         \item Your formalisation must provide an interpretation and a semantics for the following formula:
         \\\vspace{.1cm}
@@ -1168,10 +1263,16 @@
             \quad\parallel
             \mathtt{waitCoin} \cdot \mathtt{check} \cdot (\mathtt{change} \cdot \mathtt{coffee} + \mathtt{coffee}) \cdot \mathtt{waitUser} \cdot 0
         $}
+
+        \bigskip
         
         \item Draw the state graph of the system having $s_0$ as initial state, according to your semantics
         
+        \bigskip
+        
         \item You can rely on the tools listed on slide \ref{useful-tools} for your exercise
+        
+        \bigskip
         
         \item Commit \& push your \texttt{README.md} file
         
@@ -1205,7 +1306,7 @@
         \item Web-based tool for converting \LaTeX{} formulas into Unicode strings
         %
         \begin{itemize}
-            \item \url{http://vikhyat.net/projects/latex_to_unicode}
+            % \item \url{http://vikhyat.net/projects/latex_to_unicode}
             \item \url{https://www.unicodeit.net}
         \end{itemize}
     \end{itemize}
