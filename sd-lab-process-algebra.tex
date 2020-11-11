@@ -687,12 +687,12 @@
 
 \begin{frame}
 \frametitle{Example: Out-In-Rd, \emph{unordered}}
-    Example where \alert{$s_0 = \mathtt{out}(t) \cdot 0 \parallel \mathtt{in}(\bar t) \cdot 0 \parallel \mathtt{rd}(t) \cdot 0 \parallel \emptyset$}
+    Example where \alert{$s_0 = \mathtt{out}(t) \cdot 0 \parallel \mathtt{in}(\bar t) \cdot 0 \parallel \mathtt{rd}(\bar t) \cdot 0 \parallel \emptyset$}
     
     \begin{center}
         \includegraphics[width=.4\linewidth]{img/out_in_rd.pdf}
         
-        \hint{Zoomable image \href{http://www.plantuml.com/plantuml/svg/ZP9FRXCn5CRtFiLRDaX5apJDdr4LLQH1Oa6BcbGisYnCvj5QzTWZ-mrIGIm8HMBHQx20io1nXpa9apYEfz5CrKKMpkVtUx_FccDBt52UIcPlXSguuIcSu4UUItgj5Kt5PuHEL0cdn0dN4Tr9145SYeMjdpxbAS9OvqQWOJSYGS0qepj8q2wCo4XenIgJTeM6BmpW5L_SNXkTgsIifJP7HnEL27Kz6e6MuXEohuovo-x_jHE4Mp6ylq63e3IasY2GuSgArRehPNA95XPSmGS4dcLIOCBOvOivxE-Fm4ORi8rYq3djKRlrCeBYvoyGQe_-tlkJIIgdylU3sSWHsfl1rfMwFBkO5SjlSs-xofu1U_XDnSCVPjiEs8dXttq9UtCwdPpF0gpp71Wnst6OWtXziRKc5SlbV9jqutB89USdnV9xM57EF79gBd_WK8SRr_7PstSNiqcv9i2wjRu1xNsx3jNRzTqc_Tqb5UF3Hv-1OpP9-vbURSjm2YrxJc1Gqz9dmoVa-lKli6tUzuZTvXumy816mu53jACdD8RrVIkKOHCbk9HXurC7qZ6g94_bVm00}{here}}
+        \hint{Zoomable image \href{http://www.plantuml.com/plantuml/svg/ZP9FRXCn5CRtFiLRjaX5apJDdr4LLQH1Oa6BcbGisYnCvj5QzTWZ-mrIGIm8HMBHQx20io1nXpa9at7TcE1KMMJXV7w_z_kiERB43PMvPFP6g88RdiCnlkUbf9TQqKHyH6WdGJWXJjX4T2iH174fvZO-VS9pX94kZK33haM6W7b1jv2XdHjHaD2A1PDsYOPF3E05dzzS6LsgRAIbDeU7OvK9TJKSWfRY0xBFZBdBxl_62LQtKdXxZGP1QSYrGI33bHNBTPVAb18jpBc2TmYyAAJ0ZB6BPpFOsnk2JHx0Dab1bxH3kyyJgBx_0A5swFUTFvaiEDM_Rymc3j3oSvVgulHyMYs-pBpiCji2Tl-JgljVpBOSi9t2dxiQzkfaCZwRhc3jRM34RDjXzjFcucv3gXQBsMFIIUiXbvmTLuklVaKpyu_JvlBx3dNmu3ewVVtcV3fkrdXO9-gxGdlVZaDr__FrIMzzIM1y47m5VjycQJ_JZRSCJhvbrmdq8orzDdX2hXT_WSVcFOzOR-u1VG_OQDXtY5RoXCOWtZUW3EAKqAKEOq-zHZf2bPMv_0i0}{here}}
     \end{center}
 \end{frame}
 
@@ -703,7 +703,7 @@
 \begin{frame}[allowframebreaks]
 \frametitle{Exercise \currentExercise{} -- Out-Out-In-In, \emph{unordered}}
     \begin{enumerate}
-        \item Clone the Lab-10 GitLab repository: \url{\labRepo}
+        \item Clone the Lab \labN{} GitLab repository: \url{\labRepo}
         
         \vfill
         
@@ -865,8 +865,10 @@
     \framebreak
 
     \begin{center}
-        \includegraphics[width=.5\linewidth]{img/out-out-in-in.pdf}
+        \includegraphics[width=.4\linewidth]{img/out-out-in-in.pdf}
     \end{center}
+    %
+    \hint{zoomable image \href{http://www.plantuml.com/plantuml/svg/XO_1IiD048RlynHpR8MMjCTIacBLenvgJxM79JlMePlTi3khHl5WKV15V1kVeazYQeH627XOzeV__pwOMH3b9HO6mfPjgRmgy8nkLJHouQmi-8bmdBJAXIYXdqegGyYY3EUXcxvK1U7SHS_auOur8HMbLAWfv9vBOMUXHOQ36fy1yLJbsurtqUgvCyvFf-TMizsaAJh3zzIrM5fwBEj4kbvLP8nxW1U0rSaQ1uCKGmADFYGJT55wij-zzeU_QTSVikt9rzlnJt3_yLc_TmX9OnYrm1kxkbfUrsaDZRUf_x4TK0YZHZS-xhjqO_nxqmIpB8CPMHqBymq0}{here}}
 
 \end{frame}
 
@@ -877,7 +879,7 @@
 \begin{frame}[allowframebreaks]
 \frametitle{Exercise \currentExercise{} -- Non-deterministic Choice, \emph{ordered}}
     \begin{enumerate}
-        \item Go on working on your local clone of the Lab-5 GitLab repository
+        \item Go on working on your local clone of the Lab \labN{} GitLab repository
         
         \vfill
         
@@ -926,8 +928,18 @@
 
 \subsection{Simplifying Users}
 
-\begin{frame}
-\frametitle{Let's further simplify Users: abstracting $[\text{COMPUTE}]$ away}
+\begin{frame}[allowframebreaks]
+\frametitle{Let's further simplify Users}
+
+     \begin{block}{From now on$\ldots$}
+         \begin{itemize}
+             \item We further simplify our formalism to keep the state graph in our examples \emph{small}
+             \item Takeway: systems can be formalised at different \alert{level of detail}
+         \end{itemize}
+     \end{block}
+
+     \bigskip
+
     \begin{enumerate}
         \item Imagine the syntax for users was simply defined as follows:
         %
@@ -936,11 +948,11 @@
             &\mid& \mathtt{rd}(TT) \cdot U \mid (U + U) \mid 0
         \end{array}\]
         
-        \vfill
+        \bigskip
         
         \item Then, imagine transition rule $[\text{COMPUTE}]$ and $[\text{COMPUTE}_i]$ where never defined, neither for $\mathcal{TS}$ nor for $\mathcal{CS}$
         
-        \vfill
+        \bigskip
         
         \item Then, imagine rule $[\text{IN}_i]$ was defined in the following way for $\mathcal{CS}$:
         %
@@ -958,7 +970,7 @@
     		}
     	\]
         
-        \vfill
+        \bigskip
         
         \item Finally, imagine rule $[\text{RD}_i]$ was defined in the following way for $\mathcal{CS}$:
         %
@@ -1002,7 +1014,7 @@
 
 \startExercise
 
-\subsubsection{Demo \currentExercise}
+\subsection{Demo \currentExercise}
 
 \begin{frame}[allowframebreaks]
 \frametitle{Demo \currentExercise{} -- Three \href{https://en.wikipedia.org/wiki/Dining_philosophers_problem}{Dining Philosophers}, \emph{ordered}}
@@ -1132,7 +1144,7 @@
 
         \framebreak
 
-        \item Go on working on your local clone of the \labN{} GitLab repository
+        \item Go on working on your local clone of the Lab \labN{} GitLab repository
         
         \bigskip
         
